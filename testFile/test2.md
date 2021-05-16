@@ -13,13 +13,6 @@
 - 뉴런은 전기신호, 신경전달물질을 다른 뉴런으로 보내면서 서로간에 상호작용한다.
 - 각 뉴런은 신호를 받아들여서 처리한 후 다른 신호로 가공하여 다른 뉴런에 전달한다.
 
-
-### 감각정보의 프로세스
-
-<img src="https://github.com/joohyoungkim19940805/imgRepository/blob/92a4815313338d98ed9285c139f1f76532cbd6e6/%EC%BA%A1%EC%B2%98.JPG?raw=true?raw=true" width="25%" height="30%" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
-
-
-
 LSTM에서 LSTM cell 구조
 --------------------------------
 <img src="https://github.com/joohyoungkim19940805/imgRepository/blob/91d7065813b8b34fd8b9d3e2e5fb6e8c49b5c8cb/2222.JPG?raw=true" width="25%" height="30%" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
@@ -35,6 +28,12 @@ LSTM에서 LSTM cell 구조
 > Forget gate : f에 의해 c의 어느 부분을 삭제할지 결정한다.
 > Input gate : i에 의해 제어 되며 g의 어느 부분이 c에 더해져야 하는지 결정한다.
 > Output gate : c의 어느 부분을 읽어서 h와 y로 출력해야 할지 결정한다.
+
+
+### 감각정보의 프로세스
+
+<img src="https://github.com/joohyoungkim19940805/imgRepository/blob/92a4815313338d98ed9285c139f1f76532cbd6e6/%EC%BA%A1%EC%B2%98.JPG?raw=true?raw=true" width="25%" height="30%" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
+
 
 ### LSTM의 프로세스
 

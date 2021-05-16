@@ -32,7 +32,7 @@ LSTM에서 LSTM cell 구조
 > Output gate : c의 어느 부분을 읽어서 h와 y로 출력해야 할지 결정한다.
 
 
-### 감각정보의 신경학적 프로세스
+### 감각정보의 신경학적 정보 처리 프로세스
 
 <img src="https://github.com/joohyoungkim19940805/imgRepository/blob/92a4815313338d98ed9285c139f1f76532cbd6e6/%EC%BA%A1%EC%B2%98.JPG?raw=true?raw=true" width="25%" height="30%" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
 

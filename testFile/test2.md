@@ -28,7 +28,7 @@ LSTM에서 LSTM cell 구조
 - 단기 상태인 h와 셀의 출력값인 y를 만든다.
 
 > Forget gate : f에 의해 c의 어느 부분을 삭제할지 결정한다.
-> Input gate : i에 의해 제어 되며 g의 어느 부분이 c에 더해져야 하는지 결정한다.
+> Input gate : i에 의해 제어 되며 g의 어느 부분이 c에 더해져야 하는지 결정한다.??
 > Output gate : c의 어느 부분을 읽어서 h와 y로 출력해야 할지 결정한다.
 
 

@@ -41,7 +41,7 @@ LSTM에서 LSTM cell 구조
 
 <img src="https://github.com/joohyoungkim19940805/imgRepository/blob/e974fef1859382f53a53a69040c213811baa847e/1111.JPG?raw=true" width="35%" height="30%" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
 
-<img src="https://github.com/joohyoungkim19940805/imgRepository/blob/85d696cf1da5409e7d5e09c0328eec7481d07be7/12345.JPG?raw=true" width="35%" height="30%" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
+<img src="https://github.com/joohyoungkim19940805/imgRepository/blob/85d696cf1da5409e7d5e09c0328eec7481d07be7/12345.JPG?raw=true" width="40%" height="35%" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
 
 
 

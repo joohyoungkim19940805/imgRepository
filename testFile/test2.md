@@ -17,7 +17,7 @@
 
 LSTM에서 LSTM cell 구조
 --------------------------------
-<img src="https://github.com/joohyoungkim19940805/imgRepository/blob/91d7065813b8b34fd8b9d3e2e5fb6e8c49b5c8cb/2222.JPG?raw=true" width="25%" height="30%" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
+<img src="https://github.com/joohyoungkim19940805/imgRepository/blob/91d7065813b8b34fd8b9d3e2e5fb6e8c49b5c8cb/2222.JPG?raw=true" width="40%" height="30%" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
 
 - LSTM의 단위적 구조이다
 - h는 단기상태(short-term state) c는 장기상태(long-term state)이다.

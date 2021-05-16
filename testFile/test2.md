@@ -27,9 +27,9 @@ LSTM에서 LSTM cell 구조
 - c는 각 스텝을 지나면서 cell을 지날 때마다 기억을 삭제하고 추가하는 과정을 거쳐 output gate의 tanh 함수로 전달되어
 - 단기 상태인 h와 셀의 출력값인 y를 만든다.
 
-> Forget gate : f에 의해 c의 어느 부분을 삭제할지 결정한다.
-> Input gate : i에 의해 제어 되며 g의 어느 부분이 c에 더해져야 하는지 결정한다.??
-> Output gate : c의 어느 부분을 읽어서 h와 y로 출력해야 할지 결정한다.
+> Forget gate : f에 의해 c의 어느 부분을 삭제할지 결정한다.   
+> Input gate : i에 의해 제어 되며 g의 어느 부분이 c에 더해져야 하는지 결정한다.   
+> Output gate : c의 어느 부분을 읽어서 h와 y로 출력해야 할지 결정한다.   
 
 
 ### 감각정보의 신경학적 정보 처리 프로세스

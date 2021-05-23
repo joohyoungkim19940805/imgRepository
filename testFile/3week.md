@@ -20,6 +20,14 @@
 #흡연-음주 하는사람이 탈모에 걸릴 확률은 0.7
 #흡연 or 음주를 많이 할 수록 가중값이 10%씩 증가
 ```
+라이브러리 정보
+---------------------------
+```python
+import pandas as pd #판다스
+import numpy as np #넘파이
+import random as random #랜덤
+from tabulate import tabulate #데이터프레임을 예쁘게 출력하기
+```
 
 가짜 데이터를 만드는 클래스 선언하기   
 --------------------
@@ -168,8 +176,11 @@ class createDataFrame:
 -------------------------
 ```python
 if __name__ == '__main__':
-      
-    margi = createDataFrame()
+    
+    def print_df(data): #데이터프레임을 예쁘게 출력해주는 함수
+        print(tabulate(data, headers='keys', tablefmt='psql'))  
+    
+    margi = createDataFrame() # 변수에 클래스 선언하기
 
     tobacoo_per = 0.5  # 피험자가 흡연할 확률 (독립1)
     tobacooYn_per = 0.2  # 흡연자가 탈모에 걸릴 확률 (독립1-종속)
@@ -179,15 +190,15 @@ if __name__ == '__main__':
 
     tobacooAndDrink_per = 0.5  # 흡연+음주자가 탈모에 걸릴 확률 (종속)
 
-    #독립1, 독립1-종속,
+    #margi.valuesSetting( 독립1, 독립1-종속,
     #독립2, 독립2-종속,
     #(독립1+독립2)-종속
     margi.valuesSetting(tobacoo_per, tobacooYn_per,
                         drink_per, drinkYn_per,
                         tobacooAndDrink_per)
 
-    margi.create(list(range(1,1001)))
-    print(margi.getDataFrame())
+    margi.create(list(range(1,1001))) #피험자 1000명 만들기
+    print_df(margi.getDataFrame())
 """
 +-----+--------------+------------+------------+------------+   
 |     |   피험자번호 |   흡연강도 |   음주강도 |   탈모강도 |   
@@ -210,3 +221,103 @@ if __name__ == '__main__':
 |  15 |       000016 |          1 |          4 |          4 | 
 """
 ```
+
+변수 선언하기
+--------------------
+```python
+df = margi.getDataFrame()
+    x=df.loc[:,'흡연강도'].values #독립변수
+    corY=df.loc[:,'음주강도'].values #흡연-음주의 상관분석용
+    y=df.loc[:,'탈모강도'].values # 회귀분석용 종속변수
+```
+
+상관분석
+----------------
+### 공분산 계산 식
+```python
+    cov = (np.sum(x*y)-len(x)*np.mean(x)*np.mean(y))/len(x)
+    print(cov)
+    """
+    출력 = 0.7074000000000001
+    """
+```
+### numpy 공분산함수
+```python
+    cov = np.cov(x,y)[0,1]
+    print(cov)
+    """
+    출력 = 0.7081081081081081
+    """
+```
+### 공분산 
+- cov > 0 (x가 증가할 때 y도 증가한다. = 양의 상관관계)
+- cov < 0 (x가 증가할 때 y는 감소한다. = 음의 상관관계)
+- cov == 0 (두 변수간에 아무런 선형관계가 없다.)
+### 공분산의 한계
+- 공분산은 값으 범위가 정해져 있지 않기 때문에 어느정도의 값을 높냐 낮냐로 정하기 애매하다.
+- 이러한 공분산의 값을 정규화하여 특정 범위의 값만 나오게끔 하는 상관계수라는 개념이 존재한다.
+
+### 상관분석의 종류
+- 피어슨 상관계수 : 숫자형-숫자형 변수의 정규분포 관계 분석
+
+- 스피어만 순위 상관계수 : 숫자형-숫자형 변수의 정규성이 없는 단조 관계(단순증가/단순감소) 분석   
+> 수학-영어 과목의 석차 구하기   
+
+- 캔달의 타우 : 숫자형-숫자형 변수의 변수의 정규성이 없는 단조 관계 분석     
+> A가 B보다 키가 크고 몸무게도 더 나간다. = C
+> A가 B보다 키는 크지만 B의 몸무게가 더 나간다. =D 
+> P = (C-D)/(C+D)   
+
+- 스피어만과 캔달의 차이 : 
+> 두 변수의 각 비교대상의 상하 관계가 같을 때 캔달을 사용하며 변수의 순서가 존재할 때 스피어만을 사용한다.
+
+### 상관분석 하기
+
+- 통계분석 라이브러리 중 scipy를 사용한다.
+```python
+    import scipy.stats as stats
+    
+    result = stats.pearsonr(x, corY)
+    print('statistic = %.3f, pvalue = %.3f'%(result))
+    """
+    statistic < 상관계수 / pvalue < 해당 통계의 유의성
+    출력= statistic = 0.374, pvalue = 0.000
+    """
+```
+### 상관계수 기준
+- 양의 상관계수 =  x가 증가할 때 y도 증가한다.
+- 음의 상관계수 =  x가 증가할 때 y는 감소한다.
+- 0.3~0.4 = x변수와 y변수는 약한 상관관계이다.
+- 0.5~0.6 = x변수와 y변수는 서로 상관관계이다.
+- 0.7~    = x변수와 y변수는 강한 상관관계이다.
+
+### pvalue란
+- 해당 통계검증 결과의 유의성을 확인해주는 계수이다.   
+- pvalue가 특정 값보다 크거나 작을 경우 가설을 기각하거나 체택한다.
+- 학문별로 기준 값이 다르다.
+> 심리학과 같은 사회과학 계열은 pvalue가 0.5~0.001 범위에서 가설을 체택한다.(일부 학문 제외)
+> 의약임상 계열은 pvalue의 체택 범위를 0.000000000001 범위에서 체택한다.
+> 물리학 계열은 pvalue의 체택 범위가 0.00000000000000000001로 알고 있다.(정확하지 않다.)
+> 사회과학 계열의 경우 현실 세계에서 하나의 현상이 가지는 원인에는 무수히 많은 매개변수가 있기 때문에 유의성의 범위가 넓은 걸로 알고 있다.
+> ex) 1+1=1(자연과학)/ 1+1=창문(사회과학)
+    
+### 회귀분석 하기
+
+-통계분석 라이브러리 중 scipy를 사용한다.
+
+```python
+    x=df['흡연강도']
+    chis = stats.linregress(x, y)
+    print(chis) # 출력 = LinregressResult(slope=0.5492508944543828, intercept=1.1217296511627906, rvalue=0.43949900450681434, pvalue=1.7563188530051353e-48, stderr=0.03553378620945475)
+    
+    print('x기울기 : ', chis.slope) # 출력 = x기울기 :  0.5492508944543828
+    print('y 절편 :', chis.intercept) # 출력 = y 절편 : 1.1217296511627906
+    print('설명력 : ', chis.rvalue) # 출력 = 설명력 :  0.43949900450681434
+    print('p-valeu : {:.3f} '.format(chis.pvalue)) # 출력 = p-valeu : 0.000 
+    print('표준오차 :', chis.stderr) # 출력 = 표준오차 : 0.03553378620945475
+    
+```
+### 기울기란
+<img src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F9906A6465CDBC08C2F?raw=true" width="50%" height="40%" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
+    
+    

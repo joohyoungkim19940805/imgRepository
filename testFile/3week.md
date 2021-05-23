@@ -76,7 +76,18 @@ class createDataFrame:
 ```python
     def Percentage(self,per,w):
 
-        result = random.choices(self.percentage,weights=[per, 1-per, w, w, w])
+        if w==0.2:
+            result = random.choices(self.percentage,weights=[0, per + w, per, per, per])
+        elif w==0.3:
+            result = random.choices(self.percentage, weights=[0, per, per + w, per, per])
+        elif w == 0.4:
+            result = random.choices(self.percentage, weights=[0, per, per, per + w, per])
+        elif w == 0.5:
+            result = random.choices(self.percentage, weights=[0, per, per, per, per + w])
+        else:
+            w = w - w
+            result = random.choices(self.percentage, weights=[1 - per, per, w, w, w])
+
         return int(result[0])
 ```
 
@@ -84,8 +95,8 @@ class createDataFrame:
 ```python
     def create(self, subjectList):
         self.number(subjectList)
-        self.Tobacco(self.tobacoo_per)
-        self.Drinking(self.drink_per)
+        self.Tobacco()
+        self.Drinking()
         self.Hair_lost()
 ```
 
@@ -115,10 +126,10 @@ class createDataFrame:
 - 흡연 강도를 설정한다.  
 ```python
     #흡연 강도 생성
-    def Tobacco(self, w) :
+    def Tobacco(self) :
         numberList=[]
         for i in range(0, len(self.hairList[0]), 1):
-            if(self.Percentage(self.tobacoo_per, w) == 2): #확률에 가중값을 주는 함수에서 50%확률로 흡연자인지 아닌지를 설정한 후
+            if(self.Percentage(self.tobacoo_per, 0) == 2): #확률에 가중값을 주는 함수에서 50%확률로 흡연자인지 아닌지를 설정한 후
                 numberList.append(random.randint(2,5)) #흡연자일 경우 랜덤으로 2~5의 값을 준다.
             else:
                 numberList.append(1)
@@ -129,10 +140,10 @@ class createDataFrame:
 - 음주 강도를 설정한다.
 ```python
  #음주 강도 생성
-    def Drinking(self, w):
+    def Drinking(self):
         numberList=[]
         for i in range(0, len(self.hairList[0]), 1):
-            if (self.Percentage(self.drink_per, w) == 2): #확률에 가중값을 주는 함수에서 40%확률로 음주자인지 아닌지를 설정한 후
+            if (self.Percentage(self.drink_per, 0) == 2): #확률에 가중값을 주는 함수에서 40%확률로 음주자인지 아닌지를 설정한 후
                 numberList.append(random.randint(2, 5)) #음주자일 경우 랜덤으로 2~5의 값을 준다.
             else:
                 numberList.append(1)
@@ -140,30 +151,30 @@ class createDataFrame:
 ```
 
 
-- 탈모강도를 흡연, 음주 강도에 따라 랜덤으로 다르게 설정되게끔 한다.
+- 탈모강도를 흡연, 음주 강도에 따라 다르게 설정되게끔 한다.
 ```python
 #탈모강도 생성
-    def Hair_lost(self):
-        #데이터 프레임에 데이터 추가
+        def Hair_lost(self):
         self.df.loc[:,'피험자번호'] = self.hairList[0]
         self.df.loc[:,'흡연강도'] = self.hairList[1]
         self.df.loc[:,'음주강도'] = self.hairList[2]
         numberList=[]
-        for index, data in self.df.iterrows(): #한 행의 데이터를 data 변수에 집어넣는다.
-            if data[1]==1 and data[2]==1: #흡연+음주 X
+        for index, data in self.df.iterrows():
+            if data[1]==1 and data[2]==1:#흡연+음주 X
                 numberList.append(1)
-            elif data[1]!=1 and data[2]!=1: #흡연+음주 O
+            elif data[1]!=1 and data[2]!=1:#흡연+음주 O
                 val = data[1]+data[2]
                 val = val / 10
                 val = val / 2
-                w = val + self.tobacooAndDrink_per
-                numberList.append(self.Percentage(0, w))
-            elif data[1]!=1 and data[2]==1: #흡연O 음주X
-                w = self.tobacooYn_per+(data[1] / 10)
-                numberList.append(self.Percentage(0, w))
+                w = val
+                numberList.append(self.Percentage(self.tobacooAndDrink_per, w))
+            elif data[1]!=1 and data[2]==1:#흡연O 음주X
+                w = data[1] / 10
+                numberList.append(self.Percentage(self.tobacooYn_per, w))
             elif data[1]==1 and data[2] !=1: #흡연X 음주O
-                w = self.drinkYn_per+(data[2]/10)
-                numberList.append(self.Percentage(0 ,w))
+                w = data[2] / 10
+                numberList.append(self.Percentage(self.drinkYn_per, w))
+
         self.hairList[3].extend(numberList)
         self.df.loc[:,'탈모강도'] = self.hairList[3]
 
@@ -286,15 +297,15 @@ df = margi.getDataFrame()
     print('statistic = %.3f, pvalue = %.3f'%(result))
     """
     statistic < 상관계수 / pvalue < 해당 통계의 유의성
-    출력= statistic = 0.374, pvalue = 0.000 
-    "흡연강도와 음주강도는 서로 약한 상관이 있다."= 가설 체택
+    출력= statistic = 0.031, pvalue = 0.330
+    "흡연강도와 음주강도는 서로 상관이 있다."= 가설 기각
     """
 ```
 
 ### 상관분석 가설검증
-- p-value>0.000 *** 수준에서 통계적 유의성을 검증하여 기존 가설을 체택
-- 상관계수는 0.43으로 흡연강도와 음주강도는 서로 약한 상관이 있다.
-- "흡연강도와 음주강도는 서로 상관이 있다."라는 기존 가설을 체택한다.
+- p-value = 0.05<0.330 수준에서 통계적 유의성을 검증하여 기존 가설을 기각
+- 상관계수는 0.031으로 흡연강도와 음주강도는 서로 상관이 없다.
+- "흡연강도와 음주강도는 서로 상관이 있다."라는 기존 가설을 기각한다.
 
 ### 상관계수 기준
 - 양의 상관계수 =  x가 증가할 때 y도 증가한다.
@@ -307,7 +318,7 @@ df = margi.getDataFrame()
 - 해당 통계검증 결과의 유의성을 확인해주는 계수이다.   
 - pvalue가 특정 값보다 크거나 작을 경우 가설을 기각하거나 체택한다.
 - 학문별로 기준 값이 다르다.
-> 심리학과 같은 사회과학 계열은 pvalue가 0.5~0.001 범위에서 가설을 체택한다.(일부 학문 제외)   
+> 심리학과 같은 사회과학 계열은 pvalue가 0.05~0.001 범위에서 가설을 체택한다.(일부 학문 제외)   
 > 의약임상 계열은 pvalue의 체택 범위를 0.000000000001 범위에서 체택한다. (정확하지 않다.)     
 > 물리학 계열은 pvalue의 체택 범위가 0.00000000000000000001로 알고 있다. (정확하지 않다.)   
 > 사회과학 계열의 경우 현실 세계에서 하나의 현상이 가지는 원인에는 무수히 많은 매개변수가 있기 때문에 유의성의 범위가 넓은 걸로 알고 있다. (정확하지 않다.)
@@ -328,7 +339,7 @@ df = margi.getDataFrame()
     
 ```
 ### 회귀분석 가설검증
-- p-value>0.000 *** 수준에서 통계적 유의성을 검증하여 기존 가설을 체택
+- p-value = 0.05>0.000 *** 수준에서 통계적 유의성을 검증하여 기존 가설을 체택
 - R-squared는 0.43으로 흡연강도는 탈모증상에 대해 약 43%정도 설명할 수 있다.
 - "흡연강도는 탈모증상에 영향을 미친다."라는 기존 가설을 체택한다.
 

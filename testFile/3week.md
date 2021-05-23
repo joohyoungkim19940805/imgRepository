@@ -78,6 +78,7 @@ class createDataFrame:
 
 ### 4. 가상의 데이터셋을 만든다.
 
+
 - 피험자의 식별번호를 생성한다. 안 만들어도 된다.
 ```python
 #피험자 식별번호 생성
@@ -111,6 +112,7 @@ class createDataFrame:
         self.hairList[1].extend(numberList)
 ```
 
+
 - 음주 강도를 설정한다.
 ```python
  #음주 강도 생성
@@ -123,6 +125,8 @@ class createDataFrame:
                 numberList.append(1)
         self.hairList[2].extend(numberList)
 ```
+
+
 - 탈모강도를 흡연, 음주 강도에 따라 다르게 설정되게끔 한다.
 ```python
 #탈모강도 생성
@@ -151,10 +155,14 @@ class createDataFrame:
         self.df.loc[:,'탈모강도'] = self.hairList[3]
 
 ```
+
+
+- 리턴 값 만들기
 ```python
     def getDataFrame(self):
         return self.df
 ```
+
 
 가짜데이터 생성하기
 -------------------------
@@ -179,7 +187,8 @@ if __name__ == '__main__':
                         tobacooAndDrink_per)
 
     margi.create(list(range(1,1001)))
-```
+    print(margi.getDataFrame())
+"""
 +-----+--------------+------------+------------+------------+   
 |     |   피험자번호 |   흡연강도 |   음주강도 |   탈모강도 |   
 |-----+--------------+------------+------------+------------|   
@@ -198,4 +207,6 @@ if __name__ == '__main__':
 |  12 |       000013 |          1 |          4 |          2 |   
 |  13 |       000014 |          1 |          1 |          1 |   
 |  14 |       000015 |          1 |          1 |          1 |   
-|  15 |       000016 |          1 |          4 |          4 |   
+|  15 |       000016 |          1 |          4 |          4 | 
+"""
+```

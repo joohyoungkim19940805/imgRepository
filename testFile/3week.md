@@ -140,7 +140,7 @@ class createDataFrame:
 ```
 
 
-- 탈모강도를 흡연, 음주 강도에 따라 다르게 설정되게끔 한다.
+- 탈모강도를 흡연, 음주 강도에 따라 랜덤으로 다르게 설정되게끔 한다.
 ```python
 #탈모강도 생성
     def Hair_lost(self):
@@ -157,13 +157,13 @@ class createDataFrame:
                 val = val / 10
                 val = val / 2
                 w = val + self.tobacooAndDrink_per
-                numberList.append(self.Percentage(self.tobacooAndDrink_per, w))
+                numberList.append(self.Percentage(0, w))
             elif data[1]!=1 and data[2]==1: #흡연O 음주X
                 w = self.tobacooYn_per+(data[1] / 10)
-                numberList.append(self.Percentage(self.tobacooYn_per, w))
+                numberList.append(self.Percentage(0, w))
             elif data[1]==1 and data[2] !=1: #흡연X 음주O
                 w = self.drinkYn_per+(data[2]/10)
-                numberList.append(self.Percentage(self.drinkYn_per ,w))
+                numberList.append(self.Percentage(0 ,w))
         self.hairList[3].extend(numberList)
         self.df.loc[:,'탈모강도'] = self.hairList[3]
 

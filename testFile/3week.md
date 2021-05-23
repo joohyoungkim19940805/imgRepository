@@ -9,7 +9,6 @@
 --------------------
 
 '''python  
-   
 class createDataFrame:   
       def __init__(self):   
         self.hairList = [[],[],[],[]] #데이터 프레임에 넣을 4차원 리스트   

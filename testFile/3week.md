@@ -26,3 +26,17 @@ class createDataFrame:
 
 클래스 안에 함수 만들기
 -----------------------------
+1. 확률을 직접 핸들링 할 수 있도록 set 함수를 별도로 만든다.
+```python
+    def valuesSetting(self, tobacoo_per, tobacooYn_per,
+                        drink_per, drinkYn_per,
+                        tobacooAndDrink_per):
+        self.tobacoo_per = tobacoo_per #흡연자가 탈모에 걸릴 확률
+        self.tobacooYn_per = tobacooYn_per #피험자가 흡연할 확률
+
+
+        self.drink_per = drink_per #피험자가 음주할 확률
+        self.drinkYn_per = drinkYn_per #음주자가 탈모에 걸릴 확률
+
+        self.tobacooAndDrink_per = tobacooAndDrink_per#흡연+음주자가 탈모에 걸릴 확률
+```

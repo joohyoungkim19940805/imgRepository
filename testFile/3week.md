@@ -281,7 +281,7 @@ df = margi.getDataFrame()
     print('statistic = %.3f, pvalue = %.3f'%(result))
     """
     statistic < 상관계수 / pvalue < 해당 통계의 유의성
-    출력= statistic = 0.374, pvalue = 0.000
+    출력= statistic = 0.374, pvalue = 0.000 ("흡연강도와 음주강도는 서로 약한 상관이 있다."= 가설 체택)
     """
 ```
 ### 상관계수 기준
@@ -310,14 +310,16 @@ df = margi.getDataFrame()
     chis = stats.linregress(x, y)
     print(chis) # 출력 = LinregressResult(slope=0.5492508944543828, intercept=1.1217296511627906, rvalue=0.43949900450681434, pvalue=1.7563188530051353e-48, stderr=0.03553378620945475)
     
-    print('x기울기 : ', chis.slope) # 출력 = x기울기 :  0.5492508944543828
-    print('y 절편 :', chis.intercept) # 출력 = y 절편 : 1.1217296511627906
     print('설명력 : ', chis.rvalue) # 출력 = 설명력 :  0.43949900450681434
-    print('p-valeu : {:.3f} '.format(chis.pvalue)) # 출력 = p-valeu : 0.000 
-    print('표준오차 :', chis.stderr) # 출력 = 표준오차 : 0.03553378620945475
+    print('p-valeu : {:.3f} '.format(chis.pvalue)) # 출력 = p-valeu : 0.000 ("흡연강도는 탈모증상에 영향을 미친다.(흡연강도는 탈모증상에 대해 약 43%정도 설명할 수 있다.)" 가설 체택)
     
 ```
-### 기울기란
-<img src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F9906A6465CDBC08C2F?raw=true" width="50%" height="40%" title="px(픽셀) 크기 설정" alt="RubberDuck"></img>
-    
-    
+### 설명력(rvalue 또는 R-squared)
+- 독립변수가 종속변수를 얼마만큼 설명할 수 있는지를 보여주는 계수이다.     
+- 일반적으로 R-squared 또는 Adjusted R-squared가 0.3일 때 "독립변수가 종속변수의 약 30%정도 설명할 수 있다"고 표현한다.
+- 몇 퍼센트정도가 나와야 유의한지는 연구자의 판단에 따라 상이할 수 있다.
+> ex) 돈(x)이 행복(y)에 미치는 영향에 있어서 R-squared가 0.17일 때
+> 사람에 따라 R-squared = 0.17이 높은지 낮은지 판단하는 기준이 다를 수 있다.
+> 단 행복의 구성요소는 돈만 있는 것이 아니라, 학문적으로 밝혀진 것은 가족관계, 친구관계, 회사내 동료 관계, 직장 여부, 직장 만족도, 취미 등 다양하다.
+> 행복의 구성요소가 돈만 있다면 연구자는 R-squared = 0.17이 유의하지 않다고 판단할 것이고
+> 행복의 구성요소가 다양하다면 연구자는 R-squared = 0.17이 유의하다고 판단할 수도 있다.

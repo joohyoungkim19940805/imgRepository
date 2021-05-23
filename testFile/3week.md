@@ -39,8 +39,9 @@ from tabulate import tabulate #데이터프레임을 예쁘게 출력하기
 class createDataFrame:   
       def __init__(self):   
         self.hairList = [[],[],[],[]] #데이터 프레임에 넣을 4차원 리스트   
-        self.percentage = ([1,2,3,4,5]) #2~5=Y 흡연 or 음주 = 조금=2 /매우 많이=5   
+        self.percentage = ([1,2,3,4,5]) #2~5=Y 흡연 or 음주 = 조금=2 ~ 매우 많이=5   
                                         #1=N 흡연 or 음주 안한다.   
+                                        
         self.tobacoo_per = 0 #피험자가 흡연할 확률   
         self.tobacooYn_per = 0 #흡연자가 탈모에 걸릴 확률   
 

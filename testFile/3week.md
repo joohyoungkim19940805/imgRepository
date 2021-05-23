@@ -7,8 +7,7 @@
 
 클래스 선언하기   
 --------------------
-
-'''python  
+```python  
 class createDataFrame:   
       def __init__(self):   
         self.hairList = [[],[],[],[]] #데이터 프레임에 넣을 4차원 리스트   
@@ -23,7 +22,7 @@ class createDataFrame:
         self.tobacooAndDrink_per = 0 #흡연+음주자가 탈모에 걸릴 확률
 
         self.df = pd.DataFrame(columns=['피험자번호','흡연강도','음주강도','탈모강도'])
-'''
+```
 
 클래스 안에 함수 만들기
 -----------------------------

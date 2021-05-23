@@ -76,7 +76,7 @@ class createDataFrame:
 ```python
     def Percentage(self,per,w):
 
-        result = random.choices(self.percentage,weights=[per,1-per,w,w,w])
+        result = random.choices(self.percentage,weights=[per, 1-per, w, w, w])
         return int(result[0])
 ```
 
